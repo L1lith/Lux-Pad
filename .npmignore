@@ -5,3 +5,4 @@ node_modules/
 source
 /rollup.config.js
 /test.html
+/examples/
