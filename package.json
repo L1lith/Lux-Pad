@@ -1,5 +1,5 @@
 {
-  "name": "Lux-Pad",
+  "name": "lux-pad",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/lux_bundle.js",

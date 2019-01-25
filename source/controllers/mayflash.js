@@ -17,10 +17,8 @@ export default {
     } else {
       luxController.playerNumber = "unknown"
     }
-    const nunchuck = {
-      'Z': luxController.rawController.buttons[6],
-      'C': luxController.rawController.buttons[7]
-    }
+    Object.defineProperty(nunChuck, 'Z', {get: ()=>(luxController.rawController.buttons[6].pressed)})
+    Object.defineProperty(nunChuck, 'C', {get: ()=>(luxController.rawController.buttons[7].pressed)})
     luxController.nunchuckDeadzone = 0.1
     Object.defineProperty(nunchuck, 'stick', {get: standardAxes(luxController, 0, 1), writeable: false})
     luxController.aimDeadzone = 0.01
