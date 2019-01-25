@@ -2,7 +2,7 @@
   "name": "Lux-Pad",
   "version": "1.0.0",
   "description": "",
-  "main": "./LuxPad.js",
+  "main": "./dist/lux_bundle.js",
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
