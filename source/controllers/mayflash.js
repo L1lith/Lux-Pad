@@ -21,7 +21,6 @@ export default {
       }
       if (rawValue > 1.01 || Math.abs(absValue - 0.7) <= 0.1 || Math.abs(rawValue + 0.4) <= 0.1) {
         y = 0
-        console.log(absValue)
       } else if (absValue > 0.5) {
         y = -1
       } else {
