@@ -2,19 +2,32 @@
   "name": "Lux-Pad",
   "version": "1.0.0",
   "description": "",
-  "main": "LuxPad.js",
+  "main": "./LuxPad.js",
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/L1lith/Lux-Pad.git"
   },
-  "keywords": ["gamepad", "controller", "web", "api"],
+  "keywords": [
+    "gamepad",
+    "controller",
+    "web",
+    "api"
+  ],
   "author": "L1lith",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/L1lith/Lux-Pad/issues"
   },
-  "homepage": "https://github.com/L1lith/Lux-Pad#readme"
+  "homepage": "https://github.com/L1lith/Lux-Pad#readme",
+  "dependencies": {
+    "auto-bind": "^2.0.0"
+  },
+  "devDependencies": {
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  }
 }

@@ -4,4 +4,4 @@ class LuxController {
   }
 }
 
-module.exports = LuxController
+export default LuxController

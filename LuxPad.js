@@ -40,4 +40,4 @@ class LuxPad {
   }
 }
 
-module.exports = LuxPad
+export default LuxPad
