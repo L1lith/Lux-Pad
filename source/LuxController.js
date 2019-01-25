@@ -5,6 +5,7 @@ class LuxController {
   constructor(rawController, rawControllers) {
     autoBind(this)
     this.rawController = rawController
+    this.id = rawController.id
     this.buttons = {}
     this.sticks = []
     this.ready = null

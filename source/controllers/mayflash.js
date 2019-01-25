@@ -10,7 +10,6 @@ export default {
   },
   init: (luxController, rawController, rawControllers) => {
     const wiiRemotes = [...rawControllers].filter(controller => controller && wiiRemoteRegex.test(controller.id))
-    console.log(wiiRemotes)
     if (wiiRemotes.length === 4) {
       const playerNumber = 4 - wiiRemotes.indexOf(rawController)
       luxController.playerNumber = playerNumber
