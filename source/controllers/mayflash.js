@@ -24,9 +24,11 @@ export default {
     Object.defineProperty(luxController, 'aim', {get: ()=>{
       let x = luxController.rawController.axes[2]
       let y = luxController.rawController.axes[5]
+      let aiming = true
       if (Math.abs(x) < luxController.aimDeadzone) x = 0
       if (Math.abs(y) < luxController.aimDeadzone) y = 0
-      return {x, y}
+      if (x === 0 && y === 0) aiming = false
+      return {x, y, aiming}
     }, writeable: false})
     luxController.nunchuck = nunchuck
     Object.defineProperty(luxController, 'dPad', {get: ()=>{

@@ -6,6 +6,10 @@
 <body>
   <script>
     const Lux = new LuxPad()
+    setInterval(()=>{
+      const {x, y} = Lux.controllers[3].aim
+      console.log(x, y)
+    }, 100)
   </script>
 </body>
 </html>
