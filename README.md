@@ -28,3 +28,6 @@ Feel free to contribute with pull requests to help us support more :blush:
 
 ## Unsupported Controllers
 If a controller is unsupported the LuxController object's type will be `"unknown"`, but all controllers provide access to the raw controllers object via the `rawController` property which can be used directly.
+
+## Usage Without NPM
+Simply download the [latest release](https://github.com/L1lith/Lux-Pad/releases/), include it in your static assets, then import it and the global LuxPad variable will be provided.
