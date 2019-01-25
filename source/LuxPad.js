@@ -1,12 +1,15 @@
 import autoBind from 'auto-bind'
+import LuxController from './LuxController'
 
 class LuxPad {
-  constructor() {
+  constructor(options=null) {
     autoBind(this)
+    if (typeof options != 'object') throw new Error("Options must be an object or null.")
+    if (options === null) options = {}
     if (typeof navigator.getGamepads != 'function') throw new Error("Your browser does not support the Gamepad API.")
     window.addEventListener('gamepadconnected', this.gamepadconnected)
     this.rawControllers = navigator.getGamepads()
-    this.controllers
+    this.controllers = [...this.rawControllers].map(controller => new LuxController(controller))
     this.eventListeners = {controller: []}
   }
   gamepadconnected(event) {
@@ -25,10 +28,10 @@ class LuxPad {
     return this.addEventListener(eventName, callback)
   }
   onGamepad(callback) {
-    return this.addEventListener('gamepad', callback)
+  return this.onController(callback)
   }
   onController(callback) {
-    return this.onGamepad(callback)
+    return this.addEventListener('controller', callback)
   }
   removeEventListener(eventName, callback) {
     if (typeof eventName != 'string' || !this.eventListeners.hasOwnProperty(eventName)) throw new Error("Invalid Event Name")
