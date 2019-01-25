@@ -35,7 +35,7 @@ class LuxPad {
     const queries = Object.entries(search)
     return this.controllers.filter(controller => {
       if (!controller) return false
-      return queries.filter((property, value) => {
+      return queries.every((property, value) => {
         controller[property] === value
       })
     })
