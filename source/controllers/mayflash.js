@@ -10,8 +10,8 @@ export default {
   },
   init: (luxController, rawController, rawControllers) => {
     const wiiRemotes = [...rawControllers].filter(controller => wiiRemoteRegex.test(rawController.id))
-    const remoteNumber = 4 - wiiRemotes.indexOf(rawController)
-    luxController.remoteNumber = remoteNumber
+    const playerNumber = 4 - wiiRemotes.indexOf(rawController)
+    luxController.playerNumber = playerNumber
     const nunchuck = {
       'Z': luxController.rawController.buttons[6],
       'C': luxController.rawController.buttons[7]
