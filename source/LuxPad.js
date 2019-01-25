@@ -1,9 +1,9 @@
 import autoBind from 'auto-bind'
 
 class LuxPad {
-  constuctor() {
+  constructor() {
     autoBind(this)
-    if (!navigator.hasOwnProperty('getGamepads')) throw new Error("Your browser does not support the Gamepad API.")
+    if (typeof navigator.getGamepads != 'function') throw new Error("Your browser does not support the Gamepad API.")
     window.addEventListener('gamepadconnected', this.gamepadconnected)
     this.rawControllers = navigator.getGamepads()
     this.controllers
