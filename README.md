@@ -6,15 +6,16 @@ Lux Pad contains mappings for controllers it uses to make working with controlle
 import LuxPad from 'lux-pad'
 const Lux = new LuxPad()
 
-const wiiRemote = Lux.findController({type: "wii remote"})
+const wiiRemote = Lux.findController({type: "wii remote"}) // Find a single controller with matching properties
 console.log(wiiRemote) /* Returns a LuxController structured like this
 LuxController {
     type: "wii remote",
     buttons: {A: true, B: false, ...},
     nunchuk: {Z: true, C: false, stick {x: 0, y: 0.242341}},
     ...continued
-}
-*/
+}*/
+const xboxControllers = Lux.findControllers({type: "xbox 360"}) // Find all controllers with matching properties
+console.log(xboxControllers)
 ```
 
 ## Supported Controllers
