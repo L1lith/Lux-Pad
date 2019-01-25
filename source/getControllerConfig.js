@@ -1,9 +1,11 @@
 import mayflash from './controllers/mayflash'
-const controllers = [mayflash]
+import Xbox360Controller from './controllers/360'
+const controllers = [mayflash, Xbox360Controller]
 
 function getControllerConfig(controller) {
   for (let i = 0; i < controllers.length; i++) {
     const checkController = controllers[i]
+    console.log(checkController.match, controller.id)
     if (typeof checkController.match == 'string' && checkController.match.length > 0) {
       if (controller.id.includes(checkController.match)) return checkController
     } else if (checkController.match instanceof RegExp) {
