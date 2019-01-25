@@ -19,6 +19,7 @@ class LuxController {
   update() {
     if (this.controllerConfig) {
       this.type = this.controllerConfig.type
+      if (this.controllerConfig.hasOwnProperty('details')) this.details = this.controllerConfig.details
       if (this.controllerConfig.hasOwnProperty('properties')) {
         Object.entries(this.controllerConfig.properties).forEach(([key, value]) => {
           this[key] = value

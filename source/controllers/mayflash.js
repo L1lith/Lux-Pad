@@ -5,8 +5,8 @@ export default {
   match: wiiRemoteRegex,
   type: "wii remote",
   buttons: ["1","2","A","B","-","+",,,,,,"Home"],
-  properties: {
-    brand: "Mayflash"
+  details: {
+    manufacturer: "Mayflash"
   },
   init: (luxController, rawController, rawControllers) => {
     const wiiRemotes = [...rawControllers].filter(controller => wiiRemoteRegex.test(rawController.id))
