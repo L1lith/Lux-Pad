@@ -1,3 +1,4 @@
+import standardAxes from './functions/standardAxes'
 const nunchuckDeadzone = 0.1
 const wiiRemoteRegex = /Mayflash Wiimote/i
 
@@ -21,13 +22,7 @@ export default {
       'C': luxController.rawController.buttons[7]
     }
     luxController.nunchuckDeadzone = 0.1
-    Object.defineProperty(nunchuck, 'stick', {get: ()=>{
-      let x = luxController.rawController.axes[0]
-      let y = luxController.rawController.axes[1]
-      if (Math.abs(x) < luxController.nunchuckDeadzone) x = 0
-      if (Math.abs(y) < luxController.nunchuckDeadzone) y = 0
-      return {x, y}
-    }, writeable: false})
+    Object.defineProperty(nunchuck, 'stick', {get: standardAxes(luxController, 0, 1), writeable: false})
     luxController.aimDeadzone = 0.01
     Object.defineProperty(luxController, 'aim', {get: ()=>{
       let x = luxController.rawController.axes[2]

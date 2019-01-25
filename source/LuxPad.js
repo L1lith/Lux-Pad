@@ -42,7 +42,6 @@ class LuxPad {
     return this.findControllers(search)[0] || null
   }
   gamepadconnected(event) {
-    console.log(this.eventListeners)
     this.rawControllers = navigator.getGamepads()
     const controller = this.rawControllers[event.gamepad.index]
     this.eventListeners.controller.forEach(listener => listener(controller))
