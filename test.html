@@ -28,6 +28,7 @@
     const context = canvas.getContext('2d')
     const Lux = new LuxPad({refreshRate: 15})
     const remote = Lux.controllers[3]
+    if (!remote) throw new Error("Could not find the wii remote")
     const drawings = []
     setInterval(()=>{
       const {x, y, aiming} = remote.aim

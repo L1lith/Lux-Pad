@@ -10,17 +10,20 @@ class LuxPad {
     if (typeof navigator.getGamepads != 'function') throw new Error("Your browser does not support the Gamepad API.")
     this.rawControllers = navigator.getGamepads()
     window.addEventListener('gamepadconnected', this.gamepadconnected)
-    console.log(this.rawControllers)
     this.controllers = [...this.rawControllers].map(controller => controller ? new LuxController(controller, this.rawControllers) : controller)
     this.eventListeners = {controller: []}
-    console.log(this.eventListeners)
     this.refreshInterval = null
     if (isFinite(refreshRate) && refreshRate !== null) {
       this.refreshInterval = setInterval(()=>{
         this.rawControllers = navigator.getGamepads()
-        this.controllers.forEach(luxController => {
+        this.controllers.forEach((luxController, index) => {
+          if (!luxController) return
           const rawController = this.rawControllers[luxController.rawController.index]
-          if (!rawController) return luxController.disconnected()
+          if (!rawController) {
+            this.controllers.splice(index, 1)
+            luxController.disconnected()
+            return
+          }
           luxController.rawController = rawController
           luxController.update()
         })
