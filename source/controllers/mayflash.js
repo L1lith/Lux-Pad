@@ -1,3 +1,5 @@
+const nunchuckDeadzone = 0.1
+
 export default {
   match: /Mayflash Wiimote/i,
   type: "wii remote",
@@ -6,7 +8,20 @@ export default {
     brand: "Mayflash"
   },
   init: (luxController) => {
-    Object.defineProperty( luxController, 'dPad', {get: ()=>{
+    const nunchuck = {
+      'Z': luxController.rawController.buttons[6],
+      'C': luxController.rawController.buttons[7]
+    }
+    luxController.nunchuckDeadzone = 0.1
+    Object.defineProperty(nunchuck, 'stick', {get: ()=>{
+      let x = luxController.rawController.axes[0]
+      let y = luxController.rawController.axes[1]
+      if (Math.abs(x) < luxController.nunchuckDeadzone) x = 0
+      if (Math.abs(y) < luxController.nunchuckDeadzone) y = 0
+      return {x, y}
+    }, writeable: false})
+    luxController.nunchuck = nunchuck
+    Object.defineProperty(luxController, 'dPad', {get: ()=>{
       let rawValue = luxController.rawController.axes[9]
       const absValue = Math.abs(rawValue)
       let x, y
