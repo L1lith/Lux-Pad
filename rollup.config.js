@@ -4,7 +4,7 @@ import pkg from './package.json';
 import {join} from 'path'
 
 export default [{
-  input: 'LuxPad.js',
+  input: join(__dirname, 'source/LuxPad.js'),
   output: {
     file: join(__dirname, '/dist/lux_bundle.js'),
     format: 'umd',
