@@ -8,6 +8,7 @@ class LuxController {
     this.buttons = {}
     this.sticks = []
     this.ready = null
+    this.connected = true
     const controllerConfig = getControllerConfig(rawController)
     if (controllerConfig) {
       this.type = controllerConfig.type
@@ -29,7 +30,7 @@ class LuxController {
     }
   }
   disconnected() {
-    
+    this.connected = false
   }
 }
 

@@ -20,6 +20,14 @@ export default {
       if (Math.abs(y) < luxController.nunchuckDeadzone) y = 0
       return {x, y}
     }, writeable: false})
+    luxController.aimDeadzone = 0.01
+    Object.defineProperty(luxController, 'aim', {get: ()=>{
+      let x = luxController.rawController.axes[2]
+      let y = luxController.rawController.axes[5]
+      if (Math.abs(x) < luxController.aimDeadzone) x = 0
+      if (Math.abs(y) < luxController.aimDeadzone) y = 0
+      return {x, y}
+    }, writeable: false})
     luxController.nunchuck = nunchuck
     Object.defineProperty(luxController, 'dPad', {get: ()=>{
       let rawValue = luxController.rawController.axes[9]
