@@ -40,7 +40,7 @@ class LuxController {
       if (this.controllerConfig.hasOwnProperty('buttons')) {
         this.controllerConfig.buttons.forEach((button, index) => {
           if (!button) return
-          this.buttons[button] = this.rawController.buttons[index]
+          this.buttons[button] = this.rawController.buttons[index].pressed
         })
       }
     } else {
@@ -51,7 +51,7 @@ class LuxController {
     if (this.controllerConfig && this.controllerConfig.hasOwnProperty('buttons')) {
       this.controllerConfig.buttons.forEach((button, index) => {
         if (!button) return
-        this.buttons[button] = this.rawController.buttons[index]
+        this.buttons[button] = this.rawController.buttons[index].pressed
       })
     }
   }
