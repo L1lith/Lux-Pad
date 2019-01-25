@@ -1,13 +1,17 @@
 const nunchuckDeadzone = 0.1
+const wiiRemoteRegex = /Mayflash Wiimote/i
 
 export default {
-  match: /Mayflash Wiimote/i,
+  match: wiiRemoteRegex,
   type: "wii remote",
   buttons: ["1","2","A","B","-","+",,,,,,"Home"],
   properties: {
     brand: "Mayflash"
   },
-  init: (luxController) => {
+  init: (luxController, rawController, rawControllers) => {
+    const wiiRemotes = [...rawControllers].filter(controller => wiiRemoteRegex.test(rawController.id))
+    const remoteNumber = 4 - wiiRemotes.indexOf(rawController)
+    luxController.remoteNumber = remoteNumber
     const nunchuck = {
       'Z': luxController.rawController.buttons[6],
       'C': luxController.rawController.buttons[7]

@@ -6,11 +6,11 @@ class LuxPad {
     autoBind(this)
     if (typeof options != 'object') throw new Error("Options must be an object or null.")
     if (options === null) options = {}
-    const {refreshRate=35} = options
+    const {refreshRate=20} = options
     if (typeof navigator.getGamepads != 'function') throw new Error("Your browser does not support the Gamepad API.")
     window.addEventListener('gamepadconnected', this.gamepadconnected)
     this.rawControllers = navigator.getGamepads()
-    this.controllers = [...this.rawControllers].map(controller => new LuxController(controller))
+    this.controllers = [...this.rawControllers].map(controller => new LuxController(controller, this.rawControllers))
     this.eventListeners = {controller: []}
     this.refreshInterval = setInterval(()=>{
       this.rawControllers = navigator.getGamepads()
@@ -18,6 +18,7 @@ class LuxPad {
         const rawController = this.rawControllers[index]
         if (!rawController) return luxController.disconnected()
         luxController.rawController = rawController
+        luxController.update()
       })
     }, refreshRate)
   }

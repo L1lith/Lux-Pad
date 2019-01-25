@@ -2,14 +2,49 @@
 <html>
 <head>
   <script src="/dist/lux_bundle.js"></script>
+  <style>
+    #aiming {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
+  <canvas width="1000" height="1000" id="aiming"></canvas>
   <script>
-    const Lux = new LuxPad()
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    const canvas = document.getElementById('aiming')
+    const context = canvas.getContext('2d')
+    const Lux = new LuxPad({refreshRate: 15})
+    const remote = Lux.controllers[3]
+    const drawings = []
     setInterval(()=>{
-      const {x, y} = Lux.controllers[3].aim
-      console.log(x, y)
-    }, 100)
+      const {x, y, aiming} = remote.aim
+      context.fillStyle = "white"
+      context.fillRect(0, 0, canvas.width, canvas.height)
+      if (aiming === true) {
+        context.fillStyle = "black"
+        context.fillRect((x + 1) * (canvas.width / 2) - 10, (y + 1) *(canvas.height / 2) - 10, 20, 20)
+        if (remote.buttons.A.pressed === true) {
+          drawings.push([x, y, getRandomColor()])
+        }
+      }
+      drawings.forEach(([x, y, color]) => {
+        context.fillStyle = color
+        context.fillRect((x + 1) * (canvas.width / 2) - 10, (y + 1) *(canvas.height / 2) - 10, 20, 20)
+      })
+    }, 15)
   </script>
 </body>
 </html>

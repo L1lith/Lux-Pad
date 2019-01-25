@@ -12,7 +12,9 @@ function getControllerConfig(controller) {
       throw new Error("Internal Error, Unexpected Match Type")
     }
   }
-  return null
+  return {
+    type: "unknown"
+  }
 }
 
 export default getControllerConfig
