@@ -5,6 +5,7 @@ function mapController(mappedController, mapping, propChain = []) {
 	Object.entries(mapping).forEach(([key, value]) => {
 		const chain = propChain.concat([key])
 		if (typeof value === "string") {
+			if (mappedController.inputs.hasOwnProperty(value)) console.warn(new Error("Duplicate Input Declaration"))
 			Object.defineProperty(mappedController.inputs, value, { get: () => deepAccess(luxController, chain) })
 		} else {
 			mapController(mappedController, mapping[key], chain)
