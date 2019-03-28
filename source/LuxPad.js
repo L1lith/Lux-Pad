@@ -27,7 +27,6 @@ class LuxPad {
 						return
 					}
 					luxController.rawController = rawController
-					luxController.update()
 				})
 			}, refreshRate)
 		}

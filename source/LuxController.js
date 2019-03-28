@@ -13,7 +13,6 @@ class LuxController {
 		this.connected = true
 		this.controllerConfig = getControllerConfig(rawController, rawControllers)
 		if (!this.controllerConfig) throw new Error("No Controller Config Found")
-		this.update()
 		if (typeof this.controllerConfig.init == "function") {
 			const output = this.controllerConfig.init(this, rawController, rawControllers)
 			if (output instanceof Promise) this.ready = output
@@ -45,20 +44,6 @@ class LuxController {
 			}
 		} else {
 			this.type = "unknown"
-		}
-	}
-	update() {
-		if (this.controllerConfig && this.controllerConfig.hasOwnProperty("buttons")) {
-			//console.log("a", this)
-			//console.log(this.controllerConfig.buttons, this.rawController.buttons)
-			this.controllerConfig.buttons.forEach((button, index) => {
-				if (!button) return
-				try {
-					this.buttons[button] = this.rawController.buttons[index].pressed
-				} catch(error) {
-					console.log(this, button, index, error)
-				}
-			})
 		}
 	}
 	disconnected() {
