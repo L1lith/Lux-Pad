@@ -1,5 +1,6 @@
 import autoBind from "auto-bind"
 import LuxController from "./LuxController"
+import deepEqual from "deep-equal"
 
 class LuxPad {
 	constructor(options = null) {
@@ -39,11 +40,11 @@ class LuxPad {
 		const queries = Object.entries(search)
 		return controllers.filter(controller => {
 			if (!controller) return false
-			return queries.every(([property, value]) => controller[property] === value)
+			return queries.every(([property, value]) => deepEqual(controller[property], value))
 		})
 	}
-	findController(search) {
-		return this.findControllers(search)[0] || null
+	findController(search, controllers) {
+		return this.findControllers(search, controllers)[0] || null
 	}
 	waitForController(search, options = {}) {
 		const { timeout = 30000, checkInterval = 200 } = options
@@ -51,8 +52,8 @@ class LuxPad {
 		const promise = new Promise((resolve, reject) => {
 			const existingController = this.findController(search)
 			if (existingController) return resolve(existingController)
-			listener = () => {
-				controller = this.findController(search)
+			listener = controller => {
+				controller = this.findController(search, [controller])
 				if (controller) {
 					resolve(controller)
 				}
