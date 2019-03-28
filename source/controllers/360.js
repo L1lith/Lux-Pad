@@ -1,18 +1,6 @@
 import standardDPad from "./functions/standardDPad"
+import standardStick from "./functions/standardStick"
 
-function stick(luxController, xAxes, yAxes, pressButton) {
-	luxController.deadZone = 0.1
-	return () => {
-		const { axes, buttons } = luxController.rawController
-		const { deadZone } = luxController
-		let x = axes[xAxes]
-		let y = axes[yAxes]
-		if (Math.abs(x) <= deadZone) x = 0
-		if (Math.abs(y) <= deadZone) y = 0
-		const { pressed } = buttons[pressButton]
-		return { x, y, pressed }
-	}
-}
 
 export default {
 	match: /(XInput STANDARD GAMEPAD|Xbox 360.*Controller)/i,
@@ -21,8 +9,9 @@ export default {
 	standardDPads: [[14, 12, 15, 13]],
 	init: luxController => {
 		const sticks = []
-		Object.defineProperty(sticks, 0, { get: stick(luxController, 0, 1, 10) })
-		Object.defineProperty(sticks, 1, { get: stick(luxController, 2, 3, 11) })
+		Object.defineProperty(sticks, 0, { get: standardStick(luxController, 0, 1, 10) })
+		Object.defineProperty(sticks, 1, { get: standardStick(luxController, 2, 3, 11) })
+		Object.defineProperty(luxController, 'dPad', {get: standardAxesDPad})
 		luxController.sticks = sticks
 	}
 }
