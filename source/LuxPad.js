@@ -15,7 +15,7 @@ class LuxPad {
 		this.controllers = [...this.rawControllers]
 			.filter(controller => controller !== null && !(controller instanceof LuxController))
 			.map(controller => new LuxController(controller, this.rawControllers))
-		this.eventListeners = { controller: [] }
+		this.eventListeners = { controller: [], controllerDisconnected: [] }
 		this.refreshInterval = null
 		if (isFinite(refreshRate) && refreshRate !== null) {
 			this.refreshInterval = setInterval(() => {
@@ -76,6 +76,7 @@ class LuxPad {
 		const controller = new LuxController(event.gamepad, this.rawControllers)
 		this.controllers.push(controller)
 		this.eventListeners.controller.forEach(listener => listener(controller))
+    this.eventListeners.controllerDisconnected.forEach(listener => listener(controller))
 	}
   gamepaddisconnected(event) {
     const rawController = event.gamepad
