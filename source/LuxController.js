@@ -38,10 +38,10 @@ class LuxController {
 				})
 			}
 			if (this.controllerConfig.hasOwnProperty("buttons")) {
-				this.controllerConfig.buttons.forEach((button, index) => {
-					if (!button) return
-					this.buttons[button] = this.rawController.buttons[index].pressed
-				})
+			  this.controllerConfig.buttons.forEach((button, index) => {
+			    if (!button) return
+			    Object.defineProperty(this.buttons, button, {get: ()=>this.rawController.buttons[index].pressed, enumerable: true, configurable: false})
+			  })
 			}
 		} else {
 			this.type = "unknown"
