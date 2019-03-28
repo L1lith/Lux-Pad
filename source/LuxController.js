@@ -48,6 +48,7 @@ class LuxController {
 	}
 	disconnected() {
 		this.connected = false
+		this.gamepad = null
 	}
 }
 
