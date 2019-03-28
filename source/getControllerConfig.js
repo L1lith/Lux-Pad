@@ -1,6 +1,7 @@
 import mayflash from "./controllers/mayflash"
 import Xbox360Controller from "./controllers/360"
-const controllers = [mayflash, Xbox360Controller]
+import fightpadpro from './controllers/fightpadpro'
+const controllers = [mayflash, Xbox360Controller, fightpadpro]
 
 function getControllerConfig(controller) {
 	for (let i = 0; i < controllers.length; i++) {

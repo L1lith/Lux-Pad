@@ -2,8 +2,6 @@ import autoBind from "auto-bind"
 import getControllerConfig from "./getControllerConfig"
 import standardDPad from "./controllers/functions/standardDPad"
 
-// var first = true
-//
 class LuxController {
 	constructor(rawController, rawControllers) {
 		autoBind(this)
@@ -40,10 +38,6 @@ class LuxController {
 				})
 			}
 			if (this.controllerConfig.hasOwnProperty("buttons")) {
-				if (first) {
-					console.log("hi", this)
-					first = false
-				}
 				this.controllerConfig.buttons.forEach((button, index) => {
 					if (!button) return
 					this.buttons[button] = this.rawController.buttons[index].pressed
