@@ -15,7 +15,7 @@
 	<body>
 		<canvas width="1000" height="1000" id="aiming"></canvas>
 		<script>
-			const { LuxPad } = Lux
+			const { LuxPad } = window.Lux
 			function getRandomColor() {
 				const letters = "0123456789ABCDEF"
 				let color = "#"
@@ -27,8 +27,8 @@
 
 			const canvas = document.getElementById("aiming")
 			const context = canvas.getContext("2d")
-			const Lux = new LuxPad({ refreshRate: 15 })
-			const remote = Lux.controllers[3]
+			const lux = new LuxPad({ refreshRate: 15 })
+			const remote = lux.controllers[3]
 			if (!remote) throw new Error("Could not find the wii remote")
 			const drawings = []
 			setInterval(() => {

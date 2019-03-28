@@ -32,10 +32,11 @@ class LuxPad {
 			}, refreshRate)
 		}
 	}
-	findControllers(search) {
+	findControllers(search, controllers = null) {
 		if (typeof search != "object" || search === null) throw new Error("Search must be an object")
+		if (controllers === null) controllers = this.controllers
 		const queries = Object.entries(search)
-		return this.controllers.filter(controller => {
+		return controllers.filter(controller => {
 			if (!controller) return false
 			return queries.every(([property, value]) => controller[property] === value)
 		})
@@ -43,9 +44,37 @@ class LuxPad {
 	findController(search) {
 		return this.findControllers(search)[0] || null
 	}
+	waitForController(search, options = {}) {
+		const { timeout = 30000, checkInterval = 200 } = options
+		let listener
+		const promise = new Promise((resolve, reject) => {
+			const existingController = this.findController(search)
+			if (existingController) return resolve(existingController)
+			listener = () => {
+				controller = this.findController(search)
+				if (controller) {
+					resolve(controller)
+				}
+			}
+			this.addEventListener("controller", listener)
+			if (isFinite(timeout) && timeout !== null && timeout > 0) {
+				setTimeout(() => {
+					reject(new Error("Timed Out"))
+				}, timeout)
+			}
+		})
+		if (listener) {
+			promise.finally(() => {
+				this.removeEventListener("controller", listener)
+			})
+		}
+		return promise
+	}
 	gamepadconnected(event) {
 		this.rawControllers = navigator.getGamepads()
-		const controller = this.rawControllers[event.gamepad.index]
+		const rawController = this.rawControllers[event.gamepad.index]
+		const controller = new LuxController(rawController, this.rawControllers)
+		this.controllers.push(controller)
 		this.eventListeners.controller.forEach(listener => listener(controller))
 	}
 	addEventListener(eventName, callback) {

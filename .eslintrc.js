@@ -14,7 +14,6 @@ module.exports = {
 		extends: "standard",
 		parser: "babel-eslint"
 	},
-	plugins: ["react"],
 	rules: {
 		"no-console": "off",
 		curly: "off",
@@ -22,10 +21,5 @@ module.exports = {
 		"linebreak-style": ["error", process.platform === "win32" ? "windows" : "unix"],
 		quotes: ["error", "double"],
 		semi: ["error", "never"]
-	},
-	settings: {
-		react: {
-			version: "detect"
-		}
 	}
 }

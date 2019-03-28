@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="/dist/lux_bundle.js"></script>
+	</head>
+	<body>
+		<script>
+			;(() => {
+				const { ControllerMapping, LuxPad } = Lux
+				const mapping = new ControllerMapping({
+					"xbox 360": {
+						buttons: {
+							a: "jump"
+						}
+					}
+				})
+				const lux = new LuxPad()
+				window.lux = lux
+				lux
+					.waitForController({ type: "xbox 360" })
+					.then(controller => {
+						window.mapped = mapping.mapController(controller)
+					})
+					.catch(console.log)
+			})()
+		</script>
+	</body>
+</html>
