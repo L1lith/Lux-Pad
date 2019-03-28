@@ -1,6 +1,6 @@
 {
   "name": "lux-pad",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "./dist/lux_bundle.js",
   "scripts": {
@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/L1lith/Lux-Pad#readme",
   "dependencies": {
-    "auto-bind": "^2.0.0"
+    "auto-bind": "^2.0.0",
+    "deep-equal": "^1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
