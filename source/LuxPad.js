@@ -76,7 +76,7 @@ class LuxPad {
 		const controller = new LuxController(event.gamepad, this.rawControllers)
 		this.controllers.push(controller)
 		this.eventListeners.controller.forEach(listener => listener(controller))
-    this.eventListeners.controllerDisconnected.forEach(listener => listener(controller))
+    this.eventListeners.controllerDisconnected.forEach(listener => listener.apply(this, controller))
 	}
   gamepaddisconnected(event) {
     const rawController = event.gamepad

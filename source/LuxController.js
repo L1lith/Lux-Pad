@@ -11,6 +11,7 @@ class LuxController {
 		this.sticks = null
 		this.ready = null
 		this.connected = true
+		this.eventListeners = {disconnected: []}
 		this.controllerConfig = getControllerConfig(rawController, rawControllers)
 		if (!this.controllerConfig) throw new Error("No Controller Config Found")
 		if (typeof this.controllerConfig.init == "function") {
@@ -49,6 +50,7 @@ class LuxController {
 	disconnected() {
 		this.connected = false
 		this.gamepad = null
+		this.eventListeners.disconnected.forEach(listener => listener.apply(this))
 	}
 }
 
