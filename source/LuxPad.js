@@ -11,7 +11,7 @@ class LuxPad {
 		this.rawControllers = navigator.getGamepads()
 		window.addEventListener("gamepadconnected", this.gamepadconnected)
 		this.controllers = [...this.rawControllers]
-			.filter(controller => controller !== null)
+			.filter(controller => controller !== null && !(controller instanceof LuxController))
 			.map(controller => new LuxController(controller, this.rawControllers))
 		this.eventListeners = { controller: [] }
 		this.refreshInterval = null
@@ -33,8 +33,9 @@ class LuxPad {
 		}
 	}
 	findControllers(search, controllers = null) {
-		if (typeof search != "object" || search === null) throw new Error("Search must be an object")
+		if (typeof search != "object" || search === null) throw new Error("Search must be an object or null")
 		if (controllers === null) controllers = this.controllers
+    if (search === null) return controllers[0] || null
 		const queries = Object.entries(search)
 		return controllers.filter(controller => {
 			if (!controller) return false
@@ -71,9 +72,8 @@ class LuxPad {
 		return promise
 	}
 	gamepadconnected(event) {
-		this.rawControllers = navigator.getGamepads()
-		const rawController = this.rawControllers[event.gamepad.index]
-		const controller = new LuxController(rawController, this.rawControllers)
+    this.rawControllers.push(event.gamepad)
+		const controller = new LuxController(event.gamepad, this.rawControllers)
 		this.controllers.push(controller)
 		this.eventListeners.controller.forEach(listener => listener(controller))
 	}

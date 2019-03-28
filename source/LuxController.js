@@ -50,9 +50,14 @@ class LuxController {
 	update() {
 		if (this.controllerConfig && this.controllerConfig.hasOwnProperty("buttons")) {
 			//console.log("a", this)
+			//console.log(this.controllerConfig.buttons, this.rawController.buttons)
 			this.controllerConfig.buttons.forEach((button, index) => {
 				if (!button) return
-				this.buttons[button] = this.rawController.buttons[index].pressed
+				try {
+					this.buttons[button] = this.rawController.buttons[index].pressed
+				} catch(error) {
+					console.log(this, button, index, error)
+				}
 			})
 		}
 	}

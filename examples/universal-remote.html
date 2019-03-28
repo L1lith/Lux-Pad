@@ -12,12 +12,17 @@
 						buttons: {
 							a: "jump"
 						}
+					},
+					"nintendo switch gamecube pro": {
+						buttons: {
+							A: "jump"
+						}
 					}
 				})
 				const lux = new LuxPad()
 				window.lux = lux
 				lux
-					.waitForController({ type: "xbox 360" })
+					.waitForController({})
 					.then(controller => {
 						window.mapped = mapping.mapController(controller)
 					})

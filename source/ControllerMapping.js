@@ -1,5 +1,6 @@
 import LuxController from "./LuxController"
-import MappedController from "./LuxController"
+import MappedController from "./MappedController"
+import mapController from "./mapController"
 
 class ControllerMapping {
 	constructor(mapping) {
@@ -9,8 +10,8 @@ class ControllerMapping {
 	}
 	mapController(controller) {
 		if (!(controller instanceof LuxController)) throw new Error("Must supply a Lux Controller Instance")
-		if (!this.mapping.hasOwnProperty(controller.type)) throw new Error("No mapping for supplied controller")
-		const mapping = this.mapping[controller.type]
+		if (!this.mapping.hasOwnProperty(controller.type) && !this.mapping.hasOwnProperty('default')) throw new Error("No mapping for supplied controller")
+		const mapping = this.mapping[controller.type] || this.mapping.default
 		const mappedController = new MappedController(controller, mapping)
 		mapController(mappedController, mapping)
 		return mappedController
