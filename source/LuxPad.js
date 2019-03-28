@@ -9,7 +9,7 @@ class LuxPad {
 		if (options === null) options = {}
 		const { refreshRate = 20 } = options
 		if (typeof navigator.getGamepads != "function") throw new Error("Your browser does not support the Gamepad API.")
-		this.rawControllers = navigator.getGamepads()
+		this.rawControllers = [...navigator.getGamepads()].filter(gamepad => !!gamepad)
 		window.addEventListener("gamepadconnected", this.gamepadconnected)
 		this.controllers = [...this.rawControllers]
 			.filter(controller => controller !== null && !(controller instanceof LuxController))
