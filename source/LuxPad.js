@@ -18,7 +18,6 @@ class LuxPad {
 		this.refreshInterval = null
 		if (isFinite(refreshRate) && refreshRate !== null) {
 			this.refreshInterval = setInterval(() => {
-				this.rawControllers = navigator.getGamepads()
 				this.controllers.forEach((luxController, index) => {
 					if (!luxController) return
 					const rawController = this.rawControllers[luxController.rawController.index]
