@@ -35,7 +35,7 @@ class LuxPad {
 	findControllers(search=null, controllers = null) {
 		if (typeof search != "object") throw new Error("Search must be an object or null")
 		if (controllers === null) controllers = this.controllers
-    if (search === null) return controllers[0] || null
+    if (search === null) return [controllers[0] || null]
 		const queries = Object.entries(search)
 		return controllers.filter(controller => {
 			if (!controller) return false
