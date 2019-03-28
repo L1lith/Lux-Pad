@@ -8,7 +8,7 @@ class LuxController {
 		this.rawController = rawController
 		this.id = rawController.id
 		this.buttons = {}
-		this.sticks = []
+		this.sticks = null
 		this.ready = null
 		this.connected = true
 		this.controllerConfig = getControllerConfig(rawController, rawControllers)
