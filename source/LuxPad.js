@@ -29,6 +29,7 @@ class LuxPad {
       if (!rawController || rawController.type !== luxController.rawController.type) {
         this.controllers.splice(index, 1)
         luxController.disconnected()
+        this.rawControllers[luxController.rawController.index] = null
         return
       } else {
         luxController.rawController = rawController
@@ -88,6 +89,7 @@ class LuxPad {
     this.rawControllers[index] = null
     const luxController = this.controllers.filter(controller => controller.rawController === rawController)
     luxController.disconnected()
+    this.controllers.splice(this.controllers.indexOf(luxController), 1)
   }
 	addEventListener(eventName, callback) {
 		if (typeof eventName != "string" || !this.eventListeners.hasOwnProperty(eventName))
