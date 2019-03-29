@@ -18,20 +18,23 @@ class LuxPad {
 		this.eventListeners = { controller: [], controllerDisconnected: [] }
 		this.refreshInterval = null
 		if (isFinite(refreshRate) && refreshRate !== null) {
-			this.refreshInterval = setInterval(() => {
-				this.controllers.forEach((luxController, index) => {
-					if (!luxController) return
-					const rawController = this.rawControllers[luxController.rawController.index]
-					if (!rawController) {
-						this.controllers.splice(index, 1)
-						luxController.disconnected()
-						return
-					}
-					luxController.rawController = rawController
-				})
-			}, refreshRate)
+			this.refreshInterval = setInterval(this.updateControllers, refreshRate)
 		}
 	}
+  updateControllers() {
+    this.rawControllers =  [...navigator.getGamepads()].filter(gamepad => !!gamepad)
+    this.controllers.forEach((luxController, index) => {
+      if (!luxController) return
+      const rawController = this.rawControllers[luxController.rawController.index]
+      if (!rawController || rawController.type !== luxController.rawController.type) {
+        this.controllers.splice(index, 1)
+        luxController.disconnected()
+        return
+      } else {
+        luxController.rawController = rawController
+      }
+    })
+  }
 	findControllers(search=null, controllers = null) {
 		if (typeof search != "object") throw new Error("Search must be an object or null")
 		if (controllers === null) controllers = this.controllers
@@ -81,7 +84,8 @@ class LuxPad {
   gamepaddisconnected(event) {
     const rawController = event.gamepad
     const index = this.rawControllers.indexOf(rawController)
-    this.rawControllers = this.rawControllers.splice(index, 1)
+    if (index < 0) return
+    this.rawControllers[index] = null
     const luxController = this.controllers.filter(controller => controller.rawController === rawController)
     luxController.disconnected()
   }
