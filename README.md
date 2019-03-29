@@ -53,6 +53,7 @@ Currently Lux Pad supports the following controllers
 ```
 Xbox 360
 Mayflash Dolphinbar Wii Remote
+Nintendo Switch Fight Pad Pro (Gamecube style Switch controller)
 ```
 
 Feel free to contribute with pull requests to help us support more :blush:
