@@ -3,8 +3,9 @@
   "version": "0.1.6",
   "description": "",
   "main": "./dist/lux_bundle.js",
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
+    "build": "node ./scripts/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0"
+    "eslint": "^5.13.0",
+    "fs-extra": "^10.1.0"
   }
 }
