@@ -9,6 +9,7 @@ const outputDir = join(rootDir, 'dist')
 
 removeSync(outputDir)
 copySync(sourceDir, outputDir)
+copySync(join(rootDir, 'README.md'), join(outputDir, 'README.md'))
 
 const packageData = JSON.parse(readFileSync(join(rootDir, 'package.json')))
 delete packageData.devDependencies
