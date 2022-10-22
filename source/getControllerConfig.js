@@ -1,11 +1,12 @@
 import mayflash from "./controllers/mayflash"
 import Xbox360Controller from "./controllers/360"
-import fightpadpro from './controllers/fightpadpro'
+import fightpadpro from "./controllers/fightpadpro"
 const controllers = [mayflash, Xbox360Controller, fightpadpro]
 
 export function addControllerDefinition(definition) {
-	if (typeof definition != 'object' || definition === null) throw new Error("Controller definition must be an object")
-	if (typeof definition.type != 'string' || definition.type.length < 1) throw new Error("Controller definition type must be a string")
+	if (typeof definition != "object" || definition === null) throw new Error("Controller definition must be an object")
+	if (typeof definition.type != "string" || definition.type.length < 1)
+		throw new Error("Controller definition type must be a string")
 	if (Object.keys(definition).length < 2) throw new Error("No options were provided in the controller definition.")
 	if (!controllers.includes(definition)) controllers.append(definition)
 }
@@ -22,7 +23,7 @@ function getControllerConfig(controller) {
 		}
 	}
 	return {
-		type: "unknown"
+		type: "unknown",
 	}
 }
 

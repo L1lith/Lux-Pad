@@ -1,7 +1,6 @@
 import standardDPad from "./functions/standardDPad"
 import standardStick from "./functions/standardStick"
 
-
 export default {
 	match: /(XInput STANDARD GAMEPAD|Xbox 360.*Controller)/i,
 	type: "xbox 360",
@@ -9,9 +8,9 @@ export default {
 	standardDPads: [[14, 12, 15, 13]],
 	init: luxController => {
 		const sticks = {}
-		Object.defineProperty(sticks, 'left', { get: standardStick(luxController, 0, 1, 10) })
-		Object.defineProperty(sticks, 'left', { get: standardStick(luxController, 2, 3, 11) })
-		Object.defineProperty(luxController, 'dPad', {get: standardAxesDPad})
+		Object.defineProperty(sticks, "left", { get: standardStick(luxController, 0, 1, 10) })
+		Object.defineProperty(sticks, "left", { get: standardStick(luxController, 2, 3, 11) })
+		Object.defineProperty(luxController, "dPad", { get: standardAxesDPad })
 		luxController.sticks = sticks
-	}
+	},
 }

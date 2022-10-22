@@ -11,7 +11,7 @@ class LuxController {
 		this.sticks = null
 		this.ready = null
 		this.connected = true
-		this.eventListeners = {disconnected: []}
+		this.eventListeners = { disconnected: [] }
 		this.controllerConfig = getControllerConfig(rawController, rawControllers)
 		if (!this.controllerConfig) throw new Error("No Controller Config Found")
 		if (typeof this.controllerConfig.init == "function") {
@@ -38,10 +38,14 @@ class LuxController {
 				})
 			}
 			if (this.controllerConfig.hasOwnProperty("buttons")) {
-			  this.controllerConfig.buttons.forEach((button, index) => {
-			    if (!button) return
-			    Object.defineProperty(this.buttons, button, {get: ()=>this.rawController.buttons[index].pressed, enumerable: true, configurable: false})
-			  })
+				this.controllerConfig.buttons.forEach((button, index) => {
+					if (!button) return
+					Object.defineProperty(this.buttons, button, {
+						get: () => this.rawController.buttons[index].pressed,
+						enumerable: true,
+						configurable: false,
+					})
+				})
 			}
 		} else {
 			this.type = "unknown"

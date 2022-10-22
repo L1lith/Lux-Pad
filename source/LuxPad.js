@@ -10,7 +10,7 @@ class LuxPad {
 		const { refreshRate = 20 } = options
 		if (typeof navigator.getGamepads != "function") throw new Error("Your browser does not support the Gamepad API.")
 		this.rawControllers = [...navigator.getGamepads()].filter(gamepad => !!gamepad)
-    window.addEventListener("gamepaddisconnected", this.gamepaddisconnected)
+		window.addEventListener("gamepaddisconnected", this.gamepaddisconnected)
 		window.addEventListener("gamepadconnected", this.gamepadconnected)
 		this.controllers = [...this.rawControllers]
 			.filter(controller => controller !== null && !(controller instanceof LuxController))
@@ -21,25 +21,25 @@ class LuxPad {
 			this.refreshInterval = setInterval(this.updateControllers, refreshRate)
 		}
 	}
-  updateControllers() {
-    this.rawControllers =  [...navigator.getGamepads()].filter(gamepad => !!gamepad)
-    this.controllers.forEach((luxController, index) => {
-      if (!luxController) return
-      const rawController = this.rawControllers[luxController.rawController.index]
-      if (!rawController || rawController.type !== luxController.rawController.type) {
-        this.controllers.splice(index, 1)
-        luxController.disconnected()
-        this.rawControllers[luxController.rawController.index] = null
-        return
-      } else {
-        luxController.rawController = rawController
-      }
-    })
-  }
-	findControllers(search=null, controllers = null) {
+	updateControllers() {
+		this.rawControllers = [...navigator.getGamepads()].filter(gamepad => !!gamepad)
+		this.controllers.forEach((luxController, index) => {
+			if (!luxController) return
+			const rawController = this.rawControllers[luxController.rawController.index]
+			if (!rawController || rawController.type !== luxController.rawController.type) {
+				this.controllers.splice(index, 1)
+				luxController.disconnected()
+				this.rawControllers[luxController.rawController.index] = null
+				return
+			} else {
+				luxController.rawController = rawController
+			}
+		})
+	}
+	findControllers(search = null, controllers = null) {
 		if (typeof search != "object") throw new Error("Search must be an object or null")
 		if (controllers === null) controllers = this.controllers
-    if (search === null) return [controllers[0] || null]
+		if (search === null) return [controllers[0] || null]
 		const queries = Object.entries(search)
 		return controllers.filter(controller => {
 			if (!controller) return false
@@ -64,7 +64,7 @@ class LuxPad {
 			this.addEventListener("controller", listener)
 			if (isFinite(timeout) && timeout !== null && timeout > 0) {
 				setTimeout(() => {
-					reject(new Error("Timed Out"))
+					reject(new Error("Timed Out after " + Math.round(timeout / 100) / 10) + " seconds (this can be configured)")
 				}, timeout)
 			}
 		})
@@ -76,21 +76,21 @@ class LuxPad {
 		return promise
 	}
 	gamepadconnected(event) {
-    this.rawControllers.push(event.gamepad)
+		this.rawControllers.push(event.gamepad)
 		const controller = new LuxController(event.gamepad, this.rawControllers)
 		this.controllers.push(controller)
 		this.eventListeners.controller.forEach(listener => listener(controller))
-    this.eventListeners.controllerDisconnected.forEach(listener => listener.apply(this, controller))
+		this.eventListeners.controllerDisconnected.forEach(listener => listener.apply(this, controller))
 	}
-  gamepaddisconnected(event) {
-    const rawController = event.gamepad
-    const index = this.rawControllers.indexOf(rawController)
-    if (index < 0) return
-    this.rawControllers[index] = null
-    const luxController = this.controllers.filter(controller => controller.rawController === rawController)
-    luxController.disconnected()
-    this.controllers.splice(this.controllers.indexOf(luxController), 1)
-  }
+	gamepaddisconnected(event) {
+		const rawController = event.gamepad
+		const index = this.rawControllers.indexOf(rawController)
+		if (index < 0) return
+		this.rawControllers[index] = null
+		const luxController = this.controllers.filter(controller => controller.rawController === rawController)
+		luxController.disconnected()
+		this.controllers.splice(this.controllers.indexOf(luxController), 1)
+	}
 	addEventListener(eventName, callback) {
 		if (typeof eventName != "string" || !this.eventListeners.hasOwnProperty(eventName))
 			throw new Error("Invalid Event Name")

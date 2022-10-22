@@ -1,4 +1,4 @@
-function stick(luxController, xAxes, yAxes, pressButton=null) {
+function stick(luxController, xAxes, yAxes, pressButton = null) {
 	luxController.deadZone = 0.1
 	return () => {
 		const { axes, buttons } = luxController.rawController
