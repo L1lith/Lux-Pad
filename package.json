@@ -1,8 +1,8 @@
 {
   "name": "lux-pad",
   "version": "0.1.6",
-  "description": "",
-  "main": "./dist/lux_bundle.js",
+  "description": "Advanced controller recognition",
+  "main": "./index.js",
   "type": "module",
   "scripts": {
     "build": "node ./scripts/build",
